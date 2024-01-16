@@ -1,0 +1,66 @@
+<h1 class="text-center text-3xl">Manage Employee</h1>
+
+<h2 class="mt-2 mb-1 text-xl">Department</h2>
+<div class="flex">
+  <div class="w-1/2">
+    <h3>Create</h3>
+    <div class="flex flex-col">
+      <input
+        class=""
+        [(ngModel)]="formDepartment.name"
+        type="text"
+        placeholder="Name"
+      />
+      <input
+        [(ngModel)]="formDepartment.description"
+        type="text"
+        placeholder="Description"
+      />
+      <input
+        [(ngModel)]="formDepartment.address"
+        type="text"
+        placeholder="Address"
+      />
+
+      <button (click)="createForm('department')">Create Department</button>
+    </div>
+  </div>
+  <div class="w-1/2">
+    <h3>List</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Address</th>
+          <th>Edit/Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (department of departments; track $index) {
+        <tr>
+          <td>{{ department.id }}</td>
+          <td>{{ department.name }}</td>
+          <td>{{ department.description }}</td>
+          <td>{{ department.address }}</td>
+          <td>
+            <button (click)="edit('department', department.id)">Edit</button>
+            <button (click)="delete('department', department.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2>Employes</h2>
+
+<h2>Employe Department</h2>
+
+<h2>Attendance</h2>
+
+<h2>Leave Request</h2>

@@ -39,6 +39,9 @@ CREATE TABLE Status (
     status_name VARCHAR(255) NOT NULL
 );
 
+INSERT INTO Status (status_name)
+    VALUES ('pending'), ('rejected'), ('accepted');
+
 -- Création de la table LeaveRequest
 CREATE TABLE LeaveRequest (
     leave_request_id SERIAL PRIMARY KEY,

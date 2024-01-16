@@ -1,0 +1,9 @@
+frontend/.vscode
+frontend/.angular
+frontend/node_modules
+
+backend/.vs
+backend/bin
+backend/obj
+
+.DS_Store
