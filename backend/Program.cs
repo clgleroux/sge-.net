@@ -11,6 +11,7 @@ var connectionBDD = builder.Configuration.GetConnectionString("EmployeesDatabase
 builder.Services.AddDbContext<ManageEmployeeDbContext>(options => options.UseNpgsql(connectionBDD));
 
 builder.Services.AddScoped<DepartmentRepository>();
+builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddScoped<DepartmentService>();
 
 builder.Services.AddControllers();

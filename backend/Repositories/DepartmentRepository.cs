@@ -1,3 +1,4 @@
+using backend.Dto.Department;
 using backend.Entities;
 using backend.Infrastructures.Database;
 using Microsoft.EntityFrameworkCore;
@@ -47,10 +48,12 @@ namespace backend.Repositories
                 .FirstOrDefaultAsync(x => x.DepartmentId == departmentId);
         }
 
-        public async Task UpdateDepartmentAsync(Department departmentToUpdate)
+        public async Task<Department> UpdateDepartmentAsync(Department departmentToUpdate)
         {
             _manageEmployeeDbContext.Departments.Update(departmentToUpdate);
             await _manageEmployeeDbContext.SaveChangesAsync();
+
+            return departmentToUpdate;
         }
 
         public async Task<Department> DeleteDepartmentByIdAsync(int departmentId)
@@ -61,6 +64,11 @@ namespace backend.Repositories
             _manageEmployeeDbContext.Departments.Remove(departmentToDelete);
             await _manageEmployeeDbContext.SaveChangesAsync();
             return departmentToDelete;
+        }
+
+        internal Task<Department> UpdateDepartmentAsync(UpdateDepartment department)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -44,7 +44,7 @@ namespace backend.Controllers
 
         // GET api/<DepartmentsController>
         [HttpGet]
-        public async Task<ActionResult<ReadDepartment[]>> Get()
+        public async Task<ActionResult<List<ReadDepartment>>> Get()
         {
             try
             {
@@ -64,6 +64,42 @@ namespace backend.Controllers
             try
             {
                 var department = await _departementService.GetDepartmentByIdAsync(id);
+                return Ok(department);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        // PUT api/<DepartmentsController>/{id}
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ReadDepartment>> Put(
+            int id,
+            [FromBody] UpdateDepartment updateDepartment
+        )
+        {
+            try
+            {
+                var department = await _departementService.UpdateDepartmentAsync(
+                    id,
+                    updateDepartment
+                );
+                return Ok(department);
+            }
+            catch (Exception ex)
+            {
+                return Problem(ex.Message);
+            }
+        }
+
+        // DELETE api/<DepartmentsController>/{id}
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<ReadDepartment>> Delete(int id)
+        {
+            try
+            {
+                var department = await _departementService.DeleteDepartmentById(id);
                 return Ok(department);
             }
             catch (Exception ex)

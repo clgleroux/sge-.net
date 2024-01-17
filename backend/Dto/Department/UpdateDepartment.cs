@@ -1,6 +1,4 @@
-using backend.Dto.Department;
-
-namespace backend.Dtos.Department
+namespace backend.Dto.Department
 {
     public class UpdateDepartment : CreateDepartment { }
 }
