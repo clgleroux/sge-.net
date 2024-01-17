@@ -12,7 +12,10 @@ builder.Services.AddDbContext<ManageEmployeeDbContext>(options => options.UseNpg
 
 builder.Services.AddScoped<DepartmentRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
+
 builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<EmployeeService>();
+builder.Services.AddScoped<EmployeeDepartmentService>();
 
 builder.Services.AddControllers();
 

@@ -34,6 +34,13 @@ namespace backend.Repositories
             return await _manageEmployeeDbContext.Departments.ToListAsync();
         }
 
+        public async Task<List<Department>> GetDepartmentsWithIncludeAsync()
+        {
+            return await _manageEmployeeDbContext
+                .Departments.Include(x => x.Employees)
+                .ToListAsync();
+        }
+
         public async Task<Department> GetDepartmentByIdAsync(int departmentId)
         {
             return await _manageEmployeeDbContext.Departments.FirstOrDefaultAsync(
@@ -69,6 +76,28 @@ namespace backend.Repositories
         internal Task<Department> UpdateDepartmentAsync(UpdateDepartment department)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Department> AddDepartmentEmployeeAsync(
+            Department department,
+            Employee employee
+        )
+        {
+            department.Employees.Add(employee);
+            await _manageEmployeeDbContext.SaveChangesAsync();
+
+            return department;
+        }
+
+        public async Task<Department> RemoveDepartmentEmployeeAsync(
+            Department department,
+            Employee employee
+        )
+        {
+            department.Employees.Remove(employee);
+            await _manageEmployeeDbContext.SaveChangesAsync();
+
+            return department;
         }
     }
 }

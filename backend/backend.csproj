@@ -27,4 +27,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.QuickGrid.EntityFrameworkAdapter" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Dto\EmployeeDepartment\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dto\EmployeeDepartment\" />
+  </ItemGroup>
 </Project>

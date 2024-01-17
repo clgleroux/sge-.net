@@ -1,3 +1,4 @@
+using backend.Dto.EmployeeDepartment;
 using backend.Entities;
 using backend.Infrastructures.Database;
 using Microsoft.EntityFrameworkCore;
@@ -61,6 +62,28 @@ namespace backend.Repositories
             _manageEmployeeDbContext.Employees.Remove(employeeToDelete);
             await _manageEmployeeDbContext.SaveChangesAsync();
             return employeeToDelete;
+        }
+
+        public async Task<Employee> AddEmployeeDepartmentAsync(
+            Employee employee,
+            Department department
+        )
+        {
+            employee.Departments.Add(department);
+            await _manageEmployeeDbContext.SaveChangesAsync();
+
+            return employee;
+        }
+
+        public async Task<Employee> RemoveEmployeeDepartmentAsync(
+            Employee employee,
+            Department department
+        )
+        {
+            employee.Departments.Remove(department);
+            await _manageEmployeeDbContext.SaveChangesAsync();
+
+            return employee;
         }
     }
 }

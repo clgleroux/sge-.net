@@ -25,7 +25,7 @@ namespace backend.Controllers
                 || string.IsNullOrWhiteSpace(employee.LastName)
                 || string.IsNullOrWhiteSpace(employee.Email)
                 || string.IsNullOrWhiteSpace(employee.PhoneNumber)
-                || employee.Position == 0
+                || employee.Position == null
             )
             {
                 return BadRequest(
