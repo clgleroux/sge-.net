@@ -25,8 +25,5 @@ namespace backend.Repositories
                 x => x.StatusId == statusId
             );
         }
-
-        
-
     }
 }

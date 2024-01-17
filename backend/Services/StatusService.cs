@@ -14,8 +14,6 @@ namespace backend.Services
             _statusRepository = statusRepository;
         }
 
-        
-
         public async Task<List<ReadStatus>> GetStatuses()
         {
             var statuses = await _statusRepository.GetStatusesAsync();
@@ -25,11 +23,7 @@ namespace backend.Services
             foreach (var status in statuses)
             {
                 readStatus.Add(
-                    new ReadStatus()
-                    {
-                        Id = status.StatusId,
-                        Name = status.StatusName,
-                    }
+                    new ReadStatus() { Id = status.StatusId, Name = status.StatusName, }
                 );
             }
 
@@ -45,11 +39,7 @@ namespace backend.Services
                     $"Echec de recupération des informations d'un département car il n'existe pas : {statusId}"
                 );
 
-            return new ReadStatus()
-            {
-                Id = status.StatusId,
-                Name = status.StatusName,
-            };
+            return new ReadStatus() { Id = status.StatusId, Name = status.StatusName, };
         }
     }
 }

@@ -76,7 +76,9 @@ namespace backend.Services
                     $"Echec de recupération des informations d'un département car il n'existe pas : {attendanceId}"
                 );
 
-            return new ReadAttendance() { Id = attendance.AttendanceId,
+            return new ReadAttendance()
+            {
+                Id = attendance.AttendanceId,
                 EmployeeId = (int)attendance.EmployeeId,
                 StartDate = attendance.StartDate,
                 EndDate = attendance.EndDate,

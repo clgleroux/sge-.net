@@ -81,7 +81,10 @@ namespace backend.Controllers
         {
             try
             {
-                var attendance = await _attendanceService.UpdateAttendanceAsync(id, updateAttendance);
+                var attendance = await _attendanceService.UpdateAttendanceAsync(
+                    id,
+                    updateAttendance
+                );
                 return Ok(attendance);
             }
             catch (Exception ex)

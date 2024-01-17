@@ -15,8 +15,6 @@ namespace backend.Controllers
             _statusService = statusService;
         }
 
-        
-
         // GET api/<StatusController>
         [HttpGet]
         public async Task<ActionResult<List<ReadStatus>>> Get()
@@ -46,7 +44,5 @@ namespace backend.Controllers
                 return Problem(ex.Message);
             }
         }
-
-        
     }
 }

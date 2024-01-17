@@ -14,12 +14,14 @@ builder.Services.AddScoped<DepartmentRepository>();
 builder.Services.AddScoped<EmployeeRepository>();
 builder.Services.AddScoped<AttendanceRepository>();
 builder.Services.AddScoped<StatusRepository>();
+builder.Services.AddScoped<LeaverequestRepository>();
 
 builder.Services.AddScoped<DepartmentService>();
 builder.Services.AddScoped<EmployeeService>();
 builder.Services.AddScoped<EmployeeDepartmentService>();
 builder.Services.AddScoped<AttendanceService>();
 builder.Services.AddScoped<StatusService>();
+builder.Services.AddScoped<LeaverequestService>();
 
 builder.Services.AddControllers();
 

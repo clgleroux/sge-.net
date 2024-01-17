@@ -51,11 +51,12 @@ namespace backend.Repositories
 
         public async Task<Attendance> DeleteAttendanceByIdAsync(int attendanceId)
         {
-            var attendanceToDelete = await _manageEmployeeDbContext.Attendances.FindAsync(attendanceId);
+            var attendanceToDelete = await _manageEmployeeDbContext.Attendances.FindAsync(
+                attendanceId
+            );
             _manageEmployeeDbContext.Attendances.Remove(attendanceToDelete);
             await _manageEmployeeDbContext.SaveChangesAsync();
             return attendanceToDelete;
         }
-
     }
 }
