@@ -59,7 +59,7 @@ namespace backend.Controllers
 
         // GET api/<DepartmentsController>/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReadDepartment[]>> Get(int id)
+        public async Task<ActionResult<ReadDepartment>> Get(int id)
         {
             try
             {

@@ -40,17 +40,19 @@ namespace backend.Repositories
             );
         }
 
-        public async Task<Employee> GetDepartmentByIdWithIncludeAsync(int employeeId)
+        public async Task<Employee> GetEmployeeByIdWithIncludeAsync(int employeeId)
         {
             return await _manageEmployeeDbContext
                 .Employees.Include(x => x.Departments)
                 .FirstOrDefaultAsync(x => x.EmployeeId == employeeId);
         }
 
-        public async Task UpdateEmployeeAsync(Employee employeeToUpdate)
+        public async Task<Employee> UpdateEmployeeAsync(Employee employeeToUpdate)
         {
             _manageEmployeeDbContext.Employees.Update(employeeToUpdate);
             await _manageEmployeeDbContext.SaveChangesAsync();
+
+            return employeeToUpdate;
         }
 
         public async Task<Employee> DeleteEmployeeByIdAsync(int employeeId)

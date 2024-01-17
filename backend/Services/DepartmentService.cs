@@ -4,121 +4,123 @@ using backend.Repositories;
 
 namespace backend.Services
 {
-  public class DepartmentService
-  {
-    private readonly DepartmentRepository _departmentRepository;
-
-    public DepartmentService(DepartmentRepository departmentRepository)
+    public class DepartmentService
     {
-      _departmentRepository = departmentRepository;
-    }
+        private readonly DepartmentRepository _departmentRepository;
 
-    public async Task<ReadDepartment> CreateDepartmentAsync(CreateDepartment department)
-    {
-      var departmentGet = await _departmentRepository.GetDepartmentByNameAsync(
-          department.Name
-      );
-      if (departmentGet is not null)
-      {
-        throw new Exception(
-            $"Echec de création d'un département : Il existe déjà un département avec ce nom {department.Name}"
-        );
-      }
+        public DepartmentService(DepartmentRepository departmentRepository)
+        {
+            _departmentRepository = departmentRepository;
+        }
 
-      var departementTocreate = new Department()
-      {
-        Name = department.Name,
-        Description = department.Description,
-        Address = department.Address,
-      };
-
-      var departmentCreated = await _departmentRepository.CreateDepartmentAsync(
-          departementTocreate
-      );
-
-      return new ReadDepartment()
-      {
-        Id = departmentCreated.DepartmentId,
-        Name = departmentCreated.Name,
-      };
-    }
-
-    public async Task<List<ReadDepartment>> GetDepartments()
-    {
-      var departments = await _departmentRepository.GetDepartmentsAsync();
-
-      List<ReadDepartment> readDepartments = new List<ReadDepartment>();
-
-      foreach (var department in departments)
-      {
-        readDepartments.Add(
-            new ReadDepartment()
+        public async Task<ReadDepartment> CreateDepartmentAsync(CreateDepartment department)
+        {
+            var departmentGet = await _departmentRepository.GetDepartmentByNameAsync(
+                department.Name
+            );
+            if (departmentGet is not null)
             {
-              Id = department.DepartmentId,
-              Name = department.Name,
-              Description = department.Description,
-              Address = department.Address,
+                throw new Exception(
+                    $"Echec de création d'un département : Il existe déjà un département avec ce nom {department.Name}"
+                );
             }
-        );
-      }
 
-      return readDepartments;
-    }
+            var departementTocreate = new Department()
+            {
+                Name = department.Name,
+                Description = department.Description,
+                Address = department.Address,
+            };
 
-    public async Task<ReadDepartment> GetDepartmentByIdAsync(int departmentId)
-    {
-      var department = await _departmentRepository.GetDepartmentByIdAsync(departmentId);
+            var departmentCreated = await _departmentRepository.CreateDepartmentAsync(
+                departementTocreate
+            );
 
-      if (department is null)
-        throw new Exception(
-            $"Echec de recupération des informations d'un département car il n'existe pas : {departmentId}"
-        );
+            return new ReadDepartment()
+            {
+                Id = departmentCreated.DepartmentId,
+                Name = departmentCreated.Name,
+            };
+        }
 
-      return new ReadDepartment() { Id = department.DepartmentId, Name = department.Name, };
-    }
+        public async Task<List<ReadDepartment>> GetDepartments()
+        {
+            var departments = await _departmentRepository.GetDepartmentsAsync();
 
-    public async Task<Department> UpdateDepartmentAsync(
-          int departmentId,
-          UpdateDepartment department
+            List<ReadDepartment> readDepartments = new List<ReadDepartment>();
+
+            foreach (var department in departments)
+            {
+                readDepartments.Add(
+                    new ReadDepartment()
+                    {
+                        Id = department.DepartmentId,
+                        Name = department.Name,
+                        Description = department.Description,
+                        Address = department.Address,
+                    }
+                );
+            }
+
+            return readDepartments;
+        }
+
+        public async Task<ReadDepartment> GetDepartmentByIdAsync(int departmentId)
+        {
+            var department = await _departmentRepository.GetDepartmentByIdAsync(departmentId);
+
+            if (department is null)
+                throw new Exception(
+                    $"Echec de recupération des informations d'un département car il n'existe pas : {departmentId}"
+                );
+
+            return new ReadDepartment() { Id = department.DepartmentId, Name = department.Name, };
+        }
+
+        public async Task<Department> UpdateDepartmentAsync(
+            int departmentId,
+            UpdateDepartment department
         )
-    {
-      var departementUpdate = await _departmentRepository.GetDepartmentByIdAsync(departmentId) ?? throw new Exception(
-          $"Echec de mise à jour d'un département : Il n'existe aucun departement avec cet identifiant : {departmentId}"
-        );
+        {
+            var departementUpdate =
+                await _departmentRepository.GetDepartmentByIdAsync(departmentId)
+                ?? throw new Exception(
+                    $"Echec de mise à jour d'un département : Il n'existe aucun departement avec cet identifiant : {departmentId}"
+                );
 
-      var departmentGet = await _departmentRepository.GetDepartmentByNameAsync(
-        department.Name
-      );
-      if (departmentGet is not null && departmentId != departmentGet.DepartmentId)
-      {
-        throw new Exception(
-          $"Echec de mise à jour d'un département : Il existe déjà un département avec ce nom {department.Name}"
-        );
-      }
+            var departmentGet = await _departmentRepository.GetDepartmentByNameAsync(
+                department.Name
+            );
+            if (departmentGet is not null && departmentId != departmentGet.DepartmentId)
+            {
+                throw new Exception(
+                    $"Echec de mise à jour d'un département : Il existe déjà un département avec ce nom {department.Name}"
+                );
+            }
 
-      departementUpdate.Name = department.Name;
-      departementUpdate.Description = department.Description;
-      departementUpdate.Address = department.Address;
+            departementUpdate.Name = department.Name;
+            departementUpdate.Description = department.Description;
+            departementUpdate.Address = department.Address;
 
-      return await _departmentRepository.UpdateDepartmentAsync(departementUpdate);
+            return await _departmentRepository.UpdateDepartmentAsync(departementUpdate);
+        }
+
+        public async Task<Department> DeleteDepartmentById(int departmentId)
+        {
+            var departmentGet =
+                await _departmentRepository.GetDepartmentByIdWithIncludeAsync(departmentId)
+                ?? throw new Exception(
+                    $"Echec de suppression d'un département : Il n'existe aucun departement avec cet identifiant : {departmentId}"
+                );
+
+            if (departmentGet.Employees.Any())
+            {
+                throw new Exception(
+                    "Echec de suppression car ce departement est lié à des employés"
+                );
+            }
+
+            return await _departmentRepository.DeleteDepartmentByIdAsync(departmentId);
+        }
     }
-
-    public async Task<Department> DeleteDepartmentById(int departmentId)
-    {
-      var departmentGet =
-          await _departmentRepository.GetDepartmentByIdWithIncludeAsync(departmentId)
-          ?? throw new Exception(
-              $"Echec de suppression d'un département : Il n'existe aucun departement avec cet identifiant : {departmentId}"
-          );
-
-      if (departmentGet.Employees.Any())
-      {
-        throw new Exception(
-            "Echec de suppression car ce departement est lié à des employés"
-        );
-      }
-
-      return await _departmentRepository.DeleteDepartmentByIdAsync(departmentId);
-    }
-  }
 }
