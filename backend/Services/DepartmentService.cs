@@ -25,7 +25,7 @@ namespace backend.Services
                 );
             }
 
-            var departementTocreate = new Department()
+            var departmentTocreate = new Department()
             {
                 Name = department.Name,
                 Description = department.Description,
@@ -33,7 +33,7 @@ namespace backend.Services
             };
 
             var departmentCreated = await _departmentRepository.CreateDepartmentAsync(
-                departementTocreate
+                departmentTocreate
             );
 
             return new ReadDepartment()
@@ -82,7 +82,7 @@ namespace backend.Services
             UpdateDepartment department
         )
         {
-            var departementUpdate =
+            var departmentUpdate =
                 await _departmentRepository.GetDepartmentByIdAsync(departmentId)
                 ?? throw new Exception(
                     $"Echec de mise à jour d'un département : Il n'existe aucun departement avec cet identifiant : {departmentId}"
@@ -98,11 +98,11 @@ namespace backend.Services
                 );
             }
 
-            departementUpdate.Name = department.Name;
-            departementUpdate.Description = department.Description;
-            departementUpdate.Address = department.Address;
+            departmentUpdate.Name = department.Name;
+            departmentUpdate.Description = department.Description;
+            departmentUpdate.Address = department.Address;
 
-            return await _departmentRepository.UpdateDepartmentAsync(departementUpdate);
+            return await _departmentRepository.UpdateDepartmentAsync(departmentUpdate);
         }
 
         public async Task<Department> DeleteDepartmentById(int departmentId)
