@@ -5,7 +5,7 @@ import { Department } from '../dto/department.dto';
 export class DepartmentService {
   private BASE_URL: string = config.backend;
 
-  async getAllDepartments(): Promise<Department[]> {
+  async getAll(): Promise<Department[]> {
     const response = await axios.get<Department[]>(
       `${this.BASE_URL}/api/departments`
     );
@@ -29,7 +29,7 @@ export class DepartmentService {
     );
   }
 
-  async deleteDepartment(id: number): Promise<void> {
+  async delete(id: number): Promise<void> {
     return await axios.delete(`${this.BASE_URL}/api/departments/${id}`);
   }
 }

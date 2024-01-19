@@ -1,10 +1,10 @@
 <h1 class="text-center text-3xl">Manage Employee</h1>
 
 <h2 class="mt-2 mb-1 text-xl">Department</h2>
-<div class="flex">
-  <div class="w-1/2">
+<div class="flex gap-8">
+  <div class="w-2/6">
     <h3>Create</h3>
-    <div class="flex flex-col">
+    <div class="flex flex-col gap-2">
       <input
         class=""
         [(ngModel)]="formDepartment.name"
@@ -25,9 +25,9 @@
       <button (click)="createForm('department')">Create Department</button>
     </div>
   </div>
-  <div class="w-1/2">
+  <div class="w-4/6">
     <h3>List</h3>
-    <table>
+    <table class="w-full">
       <thead>
         <tr>
           <th>Id</th>
@@ -57,10 +57,271 @@
   </div>
 </div>
 
-<h2>Employes</h2>
+<h2 class="mt-2 mb-1 text-xl">Employes</h2>
+<div class="flex gap-8">
+  <div class="w-2/6">
+    <h3>Create</h3>
+    <div class="flex flex-col gap-2">
+      <input
+        class=""
+        [(ngModel)]="formEmployee.firstName"
+        type="text"
+        placeholder="First Name"
+      />
+      <input
+        [(ngModel)]="formEmployee.lastName"
+        type="text"
+        placeholder="Last Name"
+      />
+      <input
+        [(ngModel)]="formEmployee.email"
+        type="email"
+        placeholder="Email"
+      />
+      <input
+        [(ngModel)]="formEmployee.phoneNumber"
+        type="text"
+        placeholder="Phone Number"
+      />
+      <input
+        [(ngModel)]="formEmployee.position"
+        type="number"
+        placeholder="Position"
+      />
 
-<h2>Employe Department</h2>
+      <button (click)="createForm('employee')">Create Employee</button>
+    </div>
+  </div>
+  <div class="w-4/6">
+    <h3>List</h3>
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Position</th>
+          <th>Edit/Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (employee of employees; track $index) {
+        <tr>
+          <td>{{ employee.id }}</td>
+          <td>{{ employee.firstName }}</td>
+          <td>{{ employee.lastName }}</td>
+          <td>{{ employee.email }}</td>
+          <td>{{ employee.phoneNumber }}</td>
+          <td>{{ employee.position }}</td>
+          <td>
+            <button (click)="edit('employee', employee.id)">Edit</button>
+            <button (click)="delete('employee', employee.id)">Delete</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
 
-<h2>Attendance</h2>
+<h2 class="mt-2 mb-1 text-xl">Employe Department</h2>
+<div class="flex gap-8">
+  <div class="w-2/6">
+    <h3>Create</h3>
+    <div class="flex flex-col gap-2">
+      <select [(ngModel)]="formEmployeeDepartment.employeeId">
+        @for (employee of employees; track $index) {
+        <option [value]="employee.id">
+          {{ employee.id }} - {{ employee.firstName }}
+        </option>
+        }
+      </select>
 
-<h2>Leave Request</h2>
+      <select [(ngModel)]="formEmployeeDepartment.departmentId">
+        @for (department of departments; track $index) {
+        <option [value]="department.id">
+          {{ department.id }} - {{ department.name }}
+        </option>
+        }
+      </select>
+
+      <button (click)="createForm('employeeDepartment')">
+        Create Employe Department
+      </button>
+    </div>
+  </div>
+  <div class="w-4/6">
+    <h3>List</h3>
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th>Employee Id</th>
+          <th>Department Id</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (employeeDepartment of employeeDepartments; track $index) {
+        <tr>
+          <td>{{ employeeDepartment.employeeId }}</td>
+          <td>{{ employeeDepartment.departmentId }}</td>
+          <td>
+            <button
+              (click)="
+                delete('employeeDepartment', {
+                  employeeId: employeeDepartment.employeeId,
+                  departmentId: employeeDepartment.departmentId
+                })
+              "
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2 class="mt-2 mb-1 text-xl">Attendance</h2>
+<div class="flex gap-8">
+  <div class="w-2/6">
+    <h3>Create</h3>
+    <div class="flex flex-col gap-2">
+      <select [(ngModel)]="formAttendance.employeeId">
+        @for (employee of employees; track $index) {
+        <option [value]="employee.id">
+          {{ employee.id }} - {{ employee.firstName }}
+        </option>
+        }
+      </select>
+
+      <input
+        [(ngModel)]="formAttendance.startDate"
+        type="date"
+        placeholder="Last Name"
+      />
+      <input
+        [(ngModel)]="formAttendance.endDate"
+        type="date"
+        placeholder="Email"
+      />
+
+      <button (click)="createForm('attendance')">Create Attendance</button>
+    </div>
+  </div>
+  <div class="w-4/6">
+    <h3>List</h3>
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Employee Id</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Edit/Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (attendance of attendances; track $index) {
+        <tr>
+          <td>{{ attendance.id }}</td>
+          <td>{{ attendance.employeeId }}</td>
+          <td>{{ attendance.startDate }}</td>
+          <td>{{ attendance.endDate }}</td>
+          <td>
+            <button (click)="edit('employee', attendance.id)">Edit</button>
+            <button (click)="delete('employee', attendance.id)">Delete</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<h2 class="mt-2 mb-1 text-xl">Leave Request</h2>
+<div class="flex gap-8">
+  <div class="w-2/6">
+    <h3>Create</h3>
+    <div class="flex flex-col gap-2">
+      <select [(ngModel)]="formLeaveRequest.employeeId">
+        @for (employee of employees; track $index) {
+        <option [value]="employee.id">
+          {{ employee.id }} - {{ employee.firstName }}
+        </option>
+        }
+      </select>
+
+      <select [(ngModel)]="formLeaveRequest.statusId">
+        @for (statu of status; track $index) {
+        <option [value]="statu.id">{{ statu.id }} - {{ statu.name }}</option>
+        }
+      </select>
+
+      <input
+        [(ngModel)]="formLeaveRequest.startDate"
+        type="date"
+        placeholder="Start Date"
+      />
+      <input
+        [(ngModel)]="formLeaveRequest.endDate"
+        type="date"
+        placeholder="End Date"
+      />
+
+      <button (click)="createForm('leaveRequest')">Create Leave Request</button>
+    </div>
+  </div>
+  <div class="w-4/6">
+    <h3>List</h3>
+    <table class="w-full">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Employee Id</th>
+          <th>Status Id</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Edit/Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (leaveRequest of leaveRequests; track $index) {
+        <tr>
+          <td>{{ leaveRequest.id }}</td>
+          <td>{{ leaveRequest.employeeId }}</td>
+          <td>{{ leaveRequest.statusId }}</td>
+          <td>{{ leaveRequest.startDate }}</td>
+          <td>{{ leaveRequest.endDate }}</td>
+          <td>
+            <button (click)="edit('leaveRequest', leaveRequest.id)">
+              Edit
+            </button>
+            <button (click)="delete('leaveRequest', leaveRequest.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sticky-random bg-white p-2">
+  <div>RANDOM</div>
+  @if(selectedRandom !== undefined) {
+  <b class="text-lg">{{ employees[selectedRandom].firstName }}</b>
+  } @if(historyRandomId.length >= 1) {
+  <div>History :</div>
+  @for (random of historyRandomId; track $index) {
+  <div>{{ employees[random].firstName }}</div>
+  } }
+  <div>
+    <button (click)="setRandom()">Random</button>
+  </div>
+</div>
