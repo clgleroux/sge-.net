@@ -1,4 +1,5 @@
 using backend.Dto.Leaverequest;
+using backend.Entities;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -27,11 +28,10 @@ namespace backend.Controllers
                 || leaverequest.StatusId == null
                 || leaverequest.EndDate == null
                 || leaverequest.StartDate == null
-                || leaverequest.RequestDate == null
             )
             {
                 return BadRequest(
-                    "Echec de création d'un departement : les informations sont null ou vides"
+                    "Echec de création d'un leave request : les informations sont null ou vides"
                 );
             }
 
@@ -85,6 +85,19 @@ namespace backend.Controllers
             [FromBody] UpdateLeaverequest updateLeaverequest
         )
         {
+            if (
+            updateLeaverequest == null
+                || updateLeaverequest.EmployeeId == null
+                || updateLeaverequest.StatusId == null
+                || updateLeaverequest.EndDate == null
+                || updateLeaverequest.StartDate == null
+            )
+            {
+                return BadRequest(
+                    "Echec de création d'un leave request : les informations sont null ou vides"
+                );
+            }
+
             try
             {
                 var leaverequest = await _leaverequestService.UpdateLeaverequestAsync(

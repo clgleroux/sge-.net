@@ -27,7 +27,7 @@ namespace backend.Controllers
       )
       {
         return BadRequest(
-            "Echec de création d'un departement : les informations sont null ou vides"
+            "Echec de création d'un attendance : les informations sont null ou vides"
         );
       }
 
@@ -88,7 +88,7 @@ namespace backend.Controllers
         )
       {
         return BadRequest(
-            "Echec de création d'un departement : les informations sont null ou vides"
+            "Echec de création d'un attendance : les informations sont null ou vides"
         );
       }
       try

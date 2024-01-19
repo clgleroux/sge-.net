@@ -29,7 +29,7 @@ namespace backend.Services
       if (employeeGet is null)
       {
         throw new Exception(
-            $"Echec de création d'un département : Il existe déjà un département avec ce nom {employeeDepartment.EmployeeId}"
+            $"Echec de création d'un département : Il n'existe pas un employee avec cet id {employeeDepartment.EmployeeId}"
         );
       }
 
@@ -39,7 +39,7 @@ namespace backend.Services
       if (departmentGet is null)
       {
         throw new Exception(
-            $"Echec de création d'un département : Il existe déjà un département avec ce nom {employeeDepartment.DepartmentId}"
+            $"Echec de création d'un département : Il n'existe pas un department avec cet id {employeeDepartment.DepartmentId}"
         );
       }
 
@@ -80,18 +80,6 @@ namespace backend.Services
       return readEmployeeDepartment;
     }
 
-    //public async Task<ReadEmployee> GetEmployeeByIdAsync(int employeeId)
-    //{
-    //    var employee = await _employeeRepository.GetEmployeeByIdAsync(employeeId);
-
-    //    if (employee is null)
-    //        throw new Exception(
-    //            $"Echec de recupération des informations d'un département car il n'existe pas : {employeeId}"
-    //        );
-
-    //    return new ReadEmployee() { Id = employee.EmployeeId, Email = employee.Email, };
-    //}
-
     public async Task<ReadEmployeeDepartment> DeleteEmployeeDepartmentById(
         int employeeId, int departmentId
 
@@ -103,7 +91,7 @@ namespace backend.Services
       if (employeeGet is not null)
       {
         throw new Exception(
-            $"Echec de création d'un département : Il existe déjà un département avec ce nom {employeeId}"
+            $"Echec de création d'un employee département : Il n'existe pas un employee avec cet id {employeeId}"
         );
       }
 
@@ -113,7 +101,7 @@ namespace backend.Services
       if (departmentGet is not null)
       {
         throw new Exception(
-            $"Echec de création d'un département : Il existe déjà un département avec ce nom {departmentId}"
+            $"Echec de création d'un employee département : Il n'existe pas un department avec cet id {departmentId}"
         );
       }
 

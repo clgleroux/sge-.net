@@ -1,4 +1,5 @@
 using backend.Dto.Department;
+using backend.Entities;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -79,6 +80,18 @@ namespace backend.Controllers
             [FromBody] UpdateDepartment updateDepartment
         )
         {
+            if (
+            updateDepartment == null
+                || string.IsNullOrWhiteSpace(updateDepartment.Name)
+                || string.IsNullOrWhiteSpace(updateDepartment.Address)
+                || string.IsNullOrWhiteSpace(updateDepartment.Description)
+            )
+            {
+                return BadRequest(
+                    "Echec de création d'un departement : les informations sont null ou vides"
+                );
+            }
+
             try
             {
                 var department = await _departementService.UpdateDepartmentAsync(

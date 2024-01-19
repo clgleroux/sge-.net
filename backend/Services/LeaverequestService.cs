@@ -21,14 +21,14 @@ namespace backend.Services
       if (leaverequestGetStart is not null || leaverequestGetEnd is not null)
       {
         throw new Exception(
-            $"Echec de création d'un attendance : Il existe déjà un attendance avec cette date"
+            $"Echec de création d'un leaverequest : Il existe déjà un leaverequest avec cette date"
         );
       }
 
       if (leaverequest.StartDate > leaverequest.EndDate)
       {
         throw new Exception(
-            $"Echec de création d'un département : Il existe déjà un département avec ce nom {leaverequest.StartDate}"
+            $"Echec de création d'un leaverequest : EndDate inférieur à StartDare"
         );
       }
 
@@ -88,7 +88,7 @@ namespace backend.Services
 
       if (leaverequest is null)
         throw new Exception(
-            $"Echec de recupération des informations d'un département car il n'existe pas : {leaverequestId}"
+            $"Echec de recupération des informations d'un leverequest car il n'existe pas : {leaverequestId}"
         );
 
       return new ReadLeaverequest()
@@ -110,13 +110,13 @@ namespace backend.Services
       var leaverequestUpdate =
           await _leaverequestRepository.GetLeaverequestByIdAsync(leaverequestId)
           ?? throw new Exception(
-              $"Echec de mise à jour d'un département : Il n'existe aucun leaverequest avec cet identifiant : {leaverequestId}"
+              $"Echec de mise à jour d'un leaverequest : Il n'existe aucun leaverequest avec cet identifiant : {leaverequestId}"
           );
 
       if (leaverequest.StartDate > leaverequest.EndDate)
       {
         throw new Exception(
-            $"Echec de création d'un département : Il existe déjà un département avec ce nom {leaverequest.StartDate}"
+            $"Echec de création d'un leaverequest : EndDate inférieur à StartDare"
         );
       }
 
@@ -136,7 +136,7 @@ namespace backend.Services
       var leaverequestGet =
           await _leaverequestRepository.GetLeaverequestByIdWithIncludeAsync(leaverequestId)
           ?? throw new Exception(
-              $"Echec de suppression d'un département : Il n'existe aucun leaverequest avec cet identifiant : {leaverequestId}"
+              $"Echec de suppression d'un leevrequest : Il n'existe aucun leaverequest avec cet identifiant : {leaverequestId}"
           );
 
       return await _leaverequestRepository.DeleteLeaverequestByIdAsync(leaverequestId);

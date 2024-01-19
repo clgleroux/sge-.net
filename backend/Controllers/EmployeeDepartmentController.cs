@@ -28,7 +28,7 @@ namespace backend.Controllers
       )
       {
         return BadRequest(
-            "Echec de création d'un departement : les informations sont null ou vides"
+            "Echec de création d'un employeeDepartement : les informations sont null ou vides"
         );
       }
 

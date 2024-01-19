@@ -155,6 +155,11 @@ export class AppComponent implements OnInit {
         this.employeeDepartments =
           await this.employeeDepartmentService.getAll();
         break;
+      case 'leaveRequest':
+        request = await this.leaveRequestService.delete(id);
+
+        this.leaveRequests = await this.leaveRequestService.getAll();
+        break;
       default:
         break;
     }

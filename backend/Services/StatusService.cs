@@ -36,7 +36,7 @@ namespace backend.Services
 
             if (status is null)
                 throw new Exception(
-                    $"Echec de recupération des informations d'un département car il n'existe pas : {statusId}"
+                    $"Echec de recupération des informations d'un status car il n'existe pas : {statusId}"
                 );
 
             return new ReadStatus() { Id = status.StatusId, Name = status.StatusName, };

@@ -1,4 +1,5 @@
 using backend.Dto.Employee;
+using backend.Entities;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -29,7 +30,7 @@ namespace backend.Controllers
             )
             {
                 return BadRequest(
-                    "Echec de création d'un departement : les informations sont null ou vides"
+                    "Echec de création d'un employee : les informations sont null ou vides"
                 );
             }
 
@@ -81,6 +82,20 @@ namespace backend.Controllers
             [FromBody] UpdateEmployee updateEmployee
         )
         {
+            if (
+            employee == null
+                || string.IsNullOrWhiteSpace(employee.FirstName)
+                || string.IsNullOrWhiteSpace(employee.LastName)
+                || string.IsNullOrWhiteSpace(employee.Email)
+                || string.IsNullOrWhiteSpace(employee.PhoneNumber)
+                || employee.Position == null
+            )
+            {
+                return BadRequest(
+                    "Echec de création d'un employee : les informations sont null ou vides"
+                );
+            }
+
             try
             {
                 var employee = await _employeeService.UpdateEmployeeAsync(id, updateEmployee);

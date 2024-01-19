@@ -30,7 +30,7 @@ namespace backend.Services
       if (attendance.StartDate > attendance.EndDate)
       {
         throw new Exception(
-            $"Echec de création d'un département : Il existe déjà un département avec ce nom {attendance.StartDate}"
+            $"Echec de création d'un attendance : EndDate inférieur à StartDare"
         );
       }
 
@@ -83,7 +83,7 @@ namespace backend.Services
 
       if (attendance is null)
         throw new Exception(
-            $"Echec de recupération des informations d'un département car il n'existe pas : {attendanceId}"
+            $"Echec de recupération des informations d'un attendance car il n'existe pas : {attendanceId}"
         );
 
       return new ReadAttendance()
@@ -103,13 +103,13 @@ namespace backend.Services
       var attendanceUpdate =
           await _attendanceRepository.GetAttendanceByIdAsync(attendanceId)
           ?? throw new Exception(
-              $"Echec de mise à jour d'un département : Il n'existe aucun attendance avec cet identifiant : {attendanceId}"
+              $"Echec de mise à jour d'un attendace : Il n'existe aucun attendance avec cet identifiant : {attendanceId}"
           );
 
       if (attendance.StartDate > attendance.EndDate)
       {
         throw new Exception(
-            $"Echec de création d'un département : Il existe déjà un département avec ce nom {attendance.StartDate}"
+            $"Echec de création d'un attendance : EndDate inférieur à StartDare"
         );
       }
 
@@ -125,7 +125,7 @@ namespace backend.Services
       var attendanceGet =
           await _attendanceRepository.GetAttendanceByIdWithIncludeAsync(attendanceId)
           ?? throw new Exception(
-              $"Echec de suppression d'un département : Il n'existe aucun attendance avec cet identifiant : {attendanceId}"
+              $"Echec de suppression d'un attendance : Il n'existe aucun attendance avec cet identifiant : {attendanceId}"
           );
 
 

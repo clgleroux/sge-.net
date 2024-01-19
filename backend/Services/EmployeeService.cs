@@ -19,7 +19,7 @@ namespace backend.Services
             if (employeeGet is not null)
             {
                 throw new Exception(
-                    $"Echec de création d'un département : Il existe déjà un département avec ce nom {employee.Email}"
+                    $"Echec de création d'un employee : Il existe déjà un employee avec cet email {employee.Email}"
                 );
             }
 
@@ -71,7 +71,7 @@ namespace backend.Services
 
             if (employee is null)
                 throw new Exception(
-                    $"Echec de recupération des informations d'un département car il n'existe pas : {employeeId}"
+                    $"Echec de recupération des informations d'un employee car il n'existe pas : {employeeId}"
                 );
 
             return new ReadEmployee() { Id = employee.EmployeeId, Email = employee.Email, };
@@ -82,14 +82,14 @@ namespace backend.Services
             var employeeUpdate =
                 await _employeeRepository.GetEmployeeByIdAsync(employeeId)
                 ?? throw new Exception(
-                    $"Echec de mise à jour d'un département : Il n'existe aucun departement avec cet identifiant : {employeeId}"
+                    $"Echec de mise à jour d'un employee : Il n'existe aucun employee avec cet identifiant : {employeeId}"
                 );
 
             var employeeGet = await _employeeRepository.GetEmployeeByEmailAsync(employee.Email);
             if (employeeGet is not null && employeeId != employeeGet.EmployeeId)
             {
                 throw new Exception(
-                    $"Echec de mise à jour d'un département : Il existe déjà un département avec ce nom {employee.Email}"
+                    $"Echec de mise à jour d'un employee : Il existe déjà un employee avec cet email {employee.Email}"
                 );
             }
 
@@ -107,13 +107,13 @@ namespace backend.Services
             var employeeGet =
                 await _employeeRepository.GetEmployeeByIdWithIncludeAsync(employeeId)
                 ?? throw new Exception(
-                    $"Echec de suppression d'un département : Il n'existe aucun departement avec cet identifiant : {employeeId}"
+                    $"Echec de suppression d'un employee : Il n'existe aucun departement avec cet identifiant : {employeeId}"
                 );
 
             if (employeeGet.Departments.Any())
             {
                 throw new Exception(
-                    "Echec de suppression car ce departement est lié à des employés"
+                    "Echec de suppression car ce employee est lié à des departments"
                 );
             }
 
