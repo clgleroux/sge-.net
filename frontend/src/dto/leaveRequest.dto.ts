@@ -2,7 +2,7 @@ export interface LeaveRequest {
   id?: number;
   employeeId: number;
   statusId: number;
-  requestDate?: Date;
-  startDate: Date;
-  endDate: Date;
+  requestDate?: string;
+  startDate: string;
+  endDate: string;
 }

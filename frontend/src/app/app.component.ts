@@ -62,8 +62,8 @@ export class AppComponent implements OnInit {
   formLeaveRequest = {
     employeeId: 0,
     statusId: 0,
-    startDate: new Date(),
-    endDate: new Date(),
+    startDate: new Date().toISOString().split('T')[0],
+    endDate: new Date().toISOString().split('T')[0],
   };
 
   status!: any[];
@@ -86,6 +86,7 @@ export class AppComponent implements OnInit {
     this.attendances = await this.attendanceService.getAll();
     this.employeeDepartments = await this.employeeDepartmentService.getAll();
     this.leaveRequests = await this.leaveRequestService.getAll();
+
     this.status = await this.statusService.getAll();
   }
 
