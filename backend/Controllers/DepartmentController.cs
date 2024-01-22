@@ -81,7 +81,7 @@ namespace backend.Controllers
         )
         {
             if (
-            updateDepartment == null
+                updateDepartment == null
                 || string.IsNullOrWhiteSpace(updateDepartment.Name)
                 || string.IsNullOrWhiteSpace(updateDepartment.Address)
                 || string.IsNullOrWhiteSpace(updateDepartment.Description)

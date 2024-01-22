@@ -110,12 +110,12 @@ namespace backend.Services
                     $"Echec de suppression d'un employee : Il n'existe aucun departement avec cet identifiant : {employeeId}"
                 );
 
-            if (employeeGet.Departments.Any())
-            {
-                throw new Exception(
-                    "Echec de suppression car ce employee est lié à des departments"
-                );
-            }
+            //if (employeeGet.Departments.Any())
+            //{
+            //    throw new Exception(
+            //        "Echec de suppression car ce employee est lié à des departments"
+            //    );
+            //}
 
             return await _employeeRepository.DeleteEmployeeByIdAsync(employeeId);
         }

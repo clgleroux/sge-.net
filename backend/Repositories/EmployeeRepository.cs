@@ -59,6 +59,30 @@ namespace backend.Repositories
         public async Task<Employee> DeleteEmployeeByIdAsync(int employeeId)
         {
             var employeeToDelete = await _manageEmployeeDbContext.Employees.FindAsync(employeeId);
+
+            var departmentsToRemove = employeeToDelete.Departments.ToList();
+            foreach (var department in departmentsToRemove)
+            {
+                employeeToDelete.Departments.Remove(department);
+            }
+
+            var leaverequest = await _manageEmployeeDbContext.Leaverequests.FirstOrDefaultAsync(
+                x => x.EmployeeId == employeeId
+            );
+
+            var attendances = await _manageEmployeeDbContext.Attendances.FirstOrDefaultAsync(
+                x => x.EmployeeId == employeeId
+            );
+
+            if (leaverequest is not null || attendances is not null)
+            {
+                throw new Exception(
+                    "Echec de suppression car ce employee est lié à des departments"
+                );
+            }
+
+            await _manageEmployeeDbContext.SaveChangesAsync();
+
             _manageEmployeeDbContext.Employees.Remove(employeeToDelete);
             await _manageEmployeeDbContext.SaveChangesAsync();
             return employeeToDelete;

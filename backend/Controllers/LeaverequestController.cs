@@ -86,7 +86,7 @@ namespace backend.Controllers
         )
         {
             if (
-            updateLeaverequest == null
+                updateLeaverequest == null
                 || updateLeaverequest.EmployeeId == null
                 || updateLeaverequest.StatusId == null
                 || updateLeaverequest.EndDate == null

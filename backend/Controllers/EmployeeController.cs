@@ -16,6 +16,19 @@ namespace backend.Controllers
             _employeeService = employeeService;
         }
 
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         // POST api/<EmployeesController>
         [HttpPost]
         public async Task<ActionResult<ReadEmployee>> Post([FromBody] CreateEmployee employee)
@@ -25,12 +38,13 @@ namespace backend.Controllers
                 || string.IsNullOrWhiteSpace(employee.FirstName)
                 || string.IsNullOrWhiteSpace(employee.LastName)
                 || string.IsNullOrWhiteSpace(employee.Email)
+                || !IsValidEmail(employee.Email)
                 || string.IsNullOrWhiteSpace(employee.PhoneNumber)
                 || employee.Position == null
             )
             {
                 return BadRequest(
-                    "Echec de création d'un employee : les informations sont null ou vides"
+                    "Echec de création d'un employee : les informations sont null ou vides ou incorrect"
                 );
             }
 
@@ -83,16 +97,17 @@ namespace backend.Controllers
         )
         {
             if (
-            employee == null
-                || string.IsNullOrWhiteSpace(employee.FirstName)
-                || string.IsNullOrWhiteSpace(employee.LastName)
-                || string.IsNullOrWhiteSpace(employee.Email)
-                || string.IsNullOrWhiteSpace(employee.PhoneNumber)
-                || employee.Position == null
+                updateEmployee == null
+                || string.IsNullOrWhiteSpace(updateEmployee.FirstName)
+                || string.IsNullOrWhiteSpace(updateEmployee.LastName)
+                || string.IsNullOrWhiteSpace(updateEmployee.Email)
+                || !IsValidEmail(updateEmployee.Email)
+                || string.IsNullOrWhiteSpace(updateEmployee.PhoneNumber)
+                || updateEmployee.Position == null
             )
             {
                 return BadRequest(
-                    "Echec de création d'un employee : les informations sont null ou vides"
+                    "Echec de création d'un employee : les informations sont null ou vides ou incorrect"
                 );
             }
 
